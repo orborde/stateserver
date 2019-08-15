@@ -12,4 +12,5 @@ args = parser.parse_args()
 
 app = web.Application()
 app.add_routes(make_routes(state_dir=args.state_dir))
+app.add_routes([web.static('/static', '/home/orborde/Desktop/code_bits/marketgame')])
 web.run_app(app, port=args.port)
