@@ -29,9 +29,9 @@ class Resource(NamedTuple): # would like to use dataclasses, but installing 3.7 
 
 def make_routes(state_dir: Path) -> Iterable[web.RouteDef]:
     conditions: Mapping[ResourceName, asyncio.Condition] = collections.defaultdict(asyncio.Condition)
-    for method, path, func in [('GET', '/{name:[a-zA-Z0-9]{,32}}', get_state_response),
+    for method, path, func in [('GET', '/{name:[a-zA-Z0-9]{,32}}/state', get_state_response),
                                ('POST', '/{name:[a-zA-Z0-9]{,32}}/poll', poll_response),
-                               ('POST', '/{name:[a-zA-Z0-9]{,32}}', post_state_response),
+                               ('POST', '/{name:[a-zA-Z0-9]{,32}}/state', post_state_response),
                                ]:
         yield web.route(method, path, partial(func, state_dir=state_dir, conditions=conditions))
 
